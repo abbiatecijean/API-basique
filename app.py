@@ -1,18 +1,18 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import Flask-CORS
 import random
 
 app = Flask(__name__)
+CORS(app)  # Active les CORS pour toutes les routes
 
 @app.route('/score', methods=['POST'])
 def get_score():
-    # Récupère le texte envoyé dans la requête
     data = request.get_json()
     text = data.get('text', '')
 
     # Génère un score aléatoire entre 0 et 100
     score = random.randint(0, 100)
 
-    # Retourne le score sous forme de réponse JSON
     return jsonify({'text': text, 'score': score})
 
 if __name__ == '__main__':
